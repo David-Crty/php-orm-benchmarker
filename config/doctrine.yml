@@ -1,4 +1,4 @@
-doctrine:
+database:
   driver: pdo_mysql
   user: root
   password: wxqsaz8690

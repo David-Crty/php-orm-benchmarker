@@ -15,7 +15,7 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src/TestD
 
 // database configuration parameters
 $yaml = new Parser();
-$value = $yaml->parse(file_get_contents(__DIR__."/config/config.yml"));
+$value = $yaml->parse(file_get_contents(__DIR__."/config/doctrine.yml"));
 $dbParams = $value['database'];
 
 // obtaining the entity manager

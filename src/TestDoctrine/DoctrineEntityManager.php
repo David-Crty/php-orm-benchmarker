@@ -14,7 +14,7 @@ class DoctrineEntityManager {
         $isDevMode = true;
         $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/Entity"), $isDevMode);
         $yaml = new Parser();
-        $value = $yaml->parse(file_get_contents(__DIR__."/../../config/donctrine.yml"));
+        $value = $yaml->parse(file_get_contents(__DIR__."/../../config/doctrine.yml"));
         $dbParams = $value['doctrine'];
 
         $this->em = $entityManager = EntityManager::create($dbParams, $config);
