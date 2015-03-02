@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="propel" defaultIdMethod="native" namespace="TestPropel">
+    <table name="article" phpName="Article">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="titre" type="varchar" size="255" required="true" />
+        <column name="contenu" type="LONGVARCHAR" required="true"/>
+        <column name="image_id" type="integer" required="true"/>
+        <column name="author_id" type="integer" required="true"/>
+        <foreign-key foreignTable="image">
+            <reference local="image_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="utilisateur" phpName="Auteur">
+            <reference local="author_id" foreign="id"/>
+        </foreign-key>
+    </table>
+
+    <table name="image" phpName="Image">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="url" type="varchar" size="128" required="true"/>
+    </table>
+
+    <table name="utilisateur" phpName="Utilisateur">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="pseudo" type="varchar" size="128" required="true"/>
+        <column name="email" type="varchar" size="128" required="true"/>
+    </table>
+
+    <table name="commentaire" phpName="Commentaire">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="message" type="LONGVARCHAR" required="true"/>
+        <column name="utilisateur_id" type="integer" required="true"/>
+        <column name="article_id" type="integer" required="true"/>
+        <foreign-key foreignTable="utilisateur" phpName="Utilisateur">
+            <reference local="utilisateur_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="article" phpName="Article">
+            <reference local="article_id" foreign="id"/>
+        </foreign-key>
+    </table>
+
+    <table name="tag" phpName="Tag">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="nom" type="varchar" size="128" required="true"/>
+    </table>
+
+    <table name="article_tag" isCrossRef="true">
+        <column name="article_id" type="integer" required="true"/>
+        <column name="tag_id" type="integer" primaryKey="true"/>
+        <foreign-key foreignTable="article">
+            <reference local="article_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="tag">
+            <reference local="tag_id" foreign="id"/>
+        </foreign-key>
+    </table>
+</database>

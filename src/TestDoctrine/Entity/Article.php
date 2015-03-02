@@ -27,25 +27,24 @@ class Article {
     private $contenu;
 
     /**
-     * @OneToOne(targetEntity="Image")
+     * @OneToOne(targetEntity="Image", cascade={"persist"})
      * @JoinColumn(name="image_id", referencedColumnName="id")
      **/
     private $image;
 
     /**
-     * @ManyToOne(targetEntity="Utilisateur", inversedBy="articles")
+     * @ManyToOne(targetEntity="Utilisateur", inversedBy="articles", cascade={"persist"})
      * @JoinColumn(name="auteur_id", referencedColumnName="id")
      **/
     private $auteur;
 
     /**
-     * @OneToMany(targetEntity="Commentaire", mappedBy="article")
+     * @OneToMany(targetEntity="Commentaire", mappedBy="article", cascade={"persist"})
      **/
     private $commentaires;
 
     /**
-     * @ManyToMany(targetEntity="Tag", inversedBy="articles")
-     * @JoinTable(name="articles_tags")
+     * @ManyToMany(targetEntity="Tag", cascade={"persist"})
      **/
     private $tags;
 
@@ -123,6 +122,7 @@ class Article {
      */
     public function setAuteur(Utilisateur $auteur)
     {
+        $auteur->addArticle($this);
         $this->auteur = $auteur;
     }
 
@@ -156,7 +156,6 @@ class Article {
      */
     public function addTag(Tag $tag)
     {
-        $tag->addArticle($this);
         $this->tags[] = $tag;
     }
 

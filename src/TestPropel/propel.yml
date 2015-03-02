@@ -4,7 +4,7 @@ propel:
           propel:
               adapter: mysql
               classname: Propel\Runtime\Connection\ConnectionWrapper
-              dsn: "mysql:host=localhost;dbname=my_db_name"
+              dsn: "mysql:host=localhost;dbname=propel"
               user: root
               password: wxqsaz8690
               attributes:

@@ -1,7 +1,26 @@
-TestDoctrine\Entity\User:
-    user{1..1000}:
-        username: <username()>
-        fullname: <firstName()> <lastName()>
-        birthDate: <date()>
+TestDoctrine\Entity\Article:
+    article{1..10}:
+        titre: <sentence(call_user_func(function() { return rand(2, 6); }))>
+        contenu: <paragraph(call_user_func(function() { return rand(4, 12); }))>
+        image: @image<current()>
+        auteur: @utilisateur*
+        commentaires: <numberBetween(1, 15)>x @commentaire*
+        tags: <numberBetween(1, 4)>x @tag*
+
+TestDoctrine\Entity\Image:
+    image{1..10}:
+        url: <imageUrl(400, 200)>
+
+TestDoctrine\Entity\Utilisateur:
+    utilisateur{1..20}:
+        pseudo: <lastName()>
         email: <email()>
-        favoriteNumber: <numberBetween(1, 200)>
+
+TestDoctrine\Entity\Commentaire:
+    commentaire{1..150}:
+        message: <paragraph(call_user_func(function() { return rand(1, 6); }))>
+        utilisateur: @utilisateur*
+
+TestDoctrine\Entity\Tag:
+    tag{1..200}:
+      nom: <word()>

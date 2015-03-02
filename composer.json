@@ -1,0 +1,16 @@
+{
+  "name": "David-Crty/php-orm-benchmarker",
+  "license": "MIT",
+  "type": "project",
+  "description": "Allow you to benchmark multi php orm",
+  "require": {
+    "php": ">=5.3.3",
+    "doctrine/orm": "*",
+    "propel/propel": "~2.0@dev",
+    "nelmio/alice": "~1.7"
+  },
+  "autoload": {
+    "psr-0": { "": "src/" },
+    "classmap": ["src/TestPropel/generated-classes/"]
+  }
+}

@@ -22,10 +22,6 @@ class Tag {
      */
     protected $nom;
 
-    /**
-     * @ManyToMany(targetEntity="Article", mappedBy="tags")
-     **/
-    private $articles;
 
     public function __construct(){
         $this->articles = new ArrayCollection();
@@ -53,22 +49,6 @@ class Tag {
     public function setNom($nom)
     {
         $this->nom = $nom;
-    }
-
-    /**
-     * @return Article[]
-     */
-    public function getArticles()
-    {
-        return $this->articles;
-    }
-
-    /**
-     * @param Article $article
-     */
-    public function addArticle(Article $article)
-    {
-        $this->articles = $article;
     }
 
 }

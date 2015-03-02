@@ -28,7 +28,7 @@ class Commentaire {
     private $message;
 
     /**
-     * @ManyToOne(targetEntity="Utilisateur", inversedBy="commentaires")
+     * @ManyToOne(targetEntity="Utilisateur", inversedBy="commentaires", cascade={"persist"})
      * @JoinColumn(name="utilisateur_id", referencedColumnName="id")
      **/
     private $utilisateur;

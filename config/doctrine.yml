@@ -1,5 +1,5 @@
 database:
   driver: pdo_mysql
-  user: root
-  password: 
+  user: doctrine
+  password: wxqsaz8690
   dbname: doctrine

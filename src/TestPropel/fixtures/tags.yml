@@ -1,0 +1,3 @@
+TestPropel\Tag:
+    tag{1..40}:
+      nom: <word()>
