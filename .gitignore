@@ -1,2 +1,5 @@
 vendor/*
 composer.lock
+src/TestPropel/generated-sql
+src/TestPropel/generated-conf
+src/TestPropel/generated-classes
