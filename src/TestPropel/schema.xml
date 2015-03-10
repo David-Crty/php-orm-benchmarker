@@ -33,7 +33,7 @@
         <foreign-key foreignTable="utilisateur" phpName="Utilisateur">
             <reference local="utilisateur_id" foreign="id"/>
         </foreign-key>
-        <foreign-key foreignTable="article" phpName="Article">
+        <foreign-key foreignTable="article" phpName="Article" refPhpName="Commentaire">
             <reference local="article_id" foreign="id"/>
         </foreign-key>
     </table>

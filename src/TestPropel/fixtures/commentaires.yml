@@ -1,9 +1,9 @@
 TestPropel\Commentaire:
-    commentaire{1..150}:
+    commentaire{1..15}:
         message: <paragraph(call_user_func(function() { return rand(1, 6); }))>
-        utilisateur: @utilisateur*
+        utilisateur: @utilisateur<current()>
 
 TestPropel\Utilisateur:
-    utilisateur{1..10}:
+    utilisateur{1..15}:
         pseudo: <lastName()>
         email: <email()>

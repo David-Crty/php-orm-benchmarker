@@ -5,26 +5,29 @@ namespace TestDoctrine;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Yaml\Parser;
+use Nelmio\Alice\Loader\Yaml;
 
-class DoctrineEntityManager {
+class Action {
 
-    private $em;
+    /**
+     * @return EntityManager
+     */
+    public static function getEntityManager(){
 
-    public function __construct(){
         $isDevMode = true;
         $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/Entity"), $isDevMode);
         $yaml = new Parser();
         $value = $yaml->parse(file_get_contents(__DIR__."/../../config/doctrine.yml"));
         $dbParams = $value['database'];
-
-        $this->em = $entityManager = EntityManager::create($dbParams, $config);
+        return EntityManager::create($dbParams, $config);
     }
 
     /**
-     * @return EntityManager
+     * @return \TestDoctrine\Entity\User[]
      */
-    public function getEntityManager(){
-        return $this->em;
+    public function getDoctrineFixtures()
+    {
+        $loader = new Yaml();
+        return $loader->load(__DIR__.'/../../config/doctrine_fixtures.yml');
     }
-
 }

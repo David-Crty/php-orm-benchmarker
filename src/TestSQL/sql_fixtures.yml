@@ -1,4 +1,4 @@
-TestDoctrine\Entity\Article:
+TestSQL\Model\Article:
     article:
         titre: <sentence(call_user_func(function() { return rand(2, 6); }))>
         contenu: <paragraph(call_user_func(function() { return rand(4, 12); }))>
@@ -7,20 +7,20 @@ TestDoctrine\Entity\Article:
         commentaires: <numberBetween(1, 15)>x @commentaire*
         tags: <numberBetween(1, 4)>x @tag*
 
-TestDoctrine\Entity\Image:
+TestSQL\Model\Image:
     image:
         url: <imageUrl(400, 200)>
 
-TestDoctrine\Entity\Utilisateur:
+TestSQL\Model\Utilisateur:
     utilisateur{1..20}:
         pseudo: <lastName()>
         email: <email()>
 
-TestDoctrine\Entity\Commentaire:
+TestSQL\Model\Commentaire:
     commentaire{1..15}:
         message: <paragraph(call_user_func(function() { return rand(1, 6); }))>
         utilisateur: @utilisateur*
 
-TestDoctrine\Entity\Tag:
+TestSQL\Model\Tag:
     tag{1..4}:
       nom: <word()>

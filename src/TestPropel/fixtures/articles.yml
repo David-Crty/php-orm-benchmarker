@@ -1,15 +1,15 @@
 TestPropel\Article:
-    article{1..10}:
+    article:
         titre: <sentence(call_user_func(function() { return rand(2, 6); }))>
         contenu: <paragraph(call_user_func(function() { return rand(4, 12); }))>
-        image: @image<current()>
+        image: @image
         auteur: @utilisateur*
 
 TestPropel\Image:
-    image{1..10}:
+    image:
         url: <imageUrl(400, 200)>
 
 TestPropel\Utilisateur:
-    utilisateur{1..10}:
+    utilisateur{1..15}:
         pseudo: <lastName()>
         email: <email()>

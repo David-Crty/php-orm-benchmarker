@@ -1,39 +1,17 @@
 <?php
 
-use Nelmio\Alice\Loader\Yaml;
 use TestDoctrine\DoctrineEntityManager;
 use TestDoctrine\Entity\Article;
 
 class TestRunner {
-
-    private $numberOfEntity;
     private $chrono;
 
-    public function __construct(){
-        $this->setNumberOfEntity(1);
-    }
-
-    /**
-     * @return int
-     */
-    public function getNumberOfEntity()
-    {
-        return $this->numberOfEntity;
-    }
-
-    /**
-     * @param int $numberOfEntity
-     */
-    public function setNumberOfEntity($numberOfEntity)
-    {
-        $this->numberOfEntity = $numberOfEntity;
-    }
 
     /**
      * @return TestDoctrine\Entity\Article[]
      */
-    public function getArticles() {
-        $entityManager = (new DoctrineEntityManager())->getEntityManager();
+    public function getDoctrineArticles() {
+        $entityManager = DoctrineEntityManager::getEntityManager();
         $dql = "SELECT a, i, u FROM TestDoctrine\Entity\Article a JOIN a.image i JOIN a.auteur u ORDER BY a.id DESC";
         $this->startChrono();
         $query = $entityManager->createQuery($dql);
@@ -44,27 +22,30 @@ class TestRunner {
     }
 
     /**
-     * @return TestDoctrine\Entity\User[]
+     * @return \TestPropel\Article[]
      */
-    public function getDoctrineFixtures()
-    {
-        $loader = new Yaml();
-        return $loader->load(__DIR__.'/../config/doctrine_fixtures.yml');
+    public function getPropelArticles(){
+        require_once 'TestPropel/generated-conf/config.php';
+        $this->startChrono();
+        $articles =  \TestPropel\ArticleQuery::create()
+            ->joinImage()
+            ->joinAuteur()
+            ->orderById()
+            ->find();
+        $this->stopChrono();
+        return $articles;
     }
 
-    public function getPropelFixtures()
-    {
-        $loader = new Yaml();
-        return $loader->load(__DIR__.'/../config/propel_fixtures.yml');
-    }
 
     public function execDoctrineTest()
     {
-        $entityManager = (new DoctrineEntityManager())->getEntityManager();
-        $fixtures = $this->getDoctrineFixtures();
+        $action = new TestDoctrine\Action();
+        $entityManager = $action->getEntityManager();
+        $this->startChrono();
+        $fixtures = $action->getDoctrineFixtures();
         //var_dump($fixtures);
 
-        $this->startChrono();
+
         foreach($fixtures as $article){
             if($article instanceof Article){
                 $entityManager->persist($article);
@@ -77,20 +58,20 @@ class TestRunner {
     public function execPropelTest()
     {
         require_once 'TestPropel/generated-conf/config.php';
-        $fixtures = $this->getPropelFixtures();
-
+        $action = new TestPropel\Action();
         $this->startChrono();
-        foreach($fixtures as $article){
-            if($article instanceof \TestPropel\Article){
-                $article->save();
-
-            }
-        }
+        $action->insert();
         return $this->stopChrono();
 
     }
 
 
+    public function execSqlTest(){
+        $action = new TestSQL\Action();
+        $this->startChrono();
+        $action->insert();
+        return $this->stopChrono();
+    }
 
     private function startChrono(){
         $this->chrono = microtime(true);
