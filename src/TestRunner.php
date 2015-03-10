@@ -1,6 +1,6 @@
 <?php
 
-use TestDoctrine\DoctrineEntityManager;
+use TestDoctrine\Action;
 use TestDoctrine\Entity\Article;
 
 class TestRunner {
@@ -11,7 +11,7 @@ class TestRunner {
      * @return TestDoctrine\Entity\Article[]
      */
     public function getDoctrineArticles() {
-        $entityManager = DoctrineEntityManager::getEntityManager();
+        $entityManager = Action::getEntityManager();
         $dql = "SELECT a, i, u FROM TestDoctrine\Entity\Article a JOIN a.image i JOIN a.auteur u ORDER BY a.id DESC";
         $this->startChrono();
         $query = $entityManager->createQuery($dql);
